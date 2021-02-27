@@ -1,10 +1,16 @@
+import random
+
 class Pokemon:
     # Construtor
-    def __init__(self, tipo, especie, level=1, nome=None):
-
-        self.tipo = tipo
+    def __init__(self, especie, level=None, nome=None):
         self.especie = especie
-        self.level = level
+
+        if level:
+            self.level = level
+        else:
+            self.level = random.randint(1, 100)
+
+
         if nome:
             self.nome = nome
         else:
@@ -16,11 +22,31 @@ class Pokemon:
     def atacar(self, pokemon):
         print("{} Atacou {}".format(self.especie, pokemon.especie))
 
+
 class PokemonEletrico(Pokemon):
+    tipo = "Eletrico"
+
     def atacar(self, pokemon):
         print("{} lançou um choque do trovão em {}".format(self, pokemon))
 
 
-meu_pokemon = PokemonEletrico("Eletrico", "Pikachu")
-amigo_pokemon = Pokemon("Fogo", "Charizard")
-meu_pokemon.atacar(amigo_pokemon)
+class PokemonFogo(Pokemon):
+    tipo = "fogo"
+
+    def atacar(self, pokemon):
+        print("{} lançou uma bola de fogo na cabeca de {}".format(self, pokemon))
+
+
+class PokemonAgua(Pokemon):
+    tipo = "Agua"
+
+    def atacar(self, pokemon):
+        print("{} lançou um Jato d'agua em {}".format(self, pokemon))
+
+class Pikachu(PokemonEletrico):
+    especie = "Pikachu"
+
+
+
+
+
