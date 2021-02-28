@@ -1,5 +1,6 @@
 import random
 
+
 class Pokemon:
     # Construtor
     def __init__(self, especie, level=None, nome=None):
@@ -10,17 +11,26 @@ class Pokemon:
         else:
             self.level = random.randint(1, 100)
 
-
         if nome:
             self.nome = nome
         else:
             self.nome = especie
 
+        self.ataque = self.level*5
+        self.vida = self.level*10
+
     def __str__(self):
         return "{} ({})".format(self.nome, self.level)
 
     def atacar(self, pokemon):
-        print("{} Atacou {}".format(self.especie, pokemon.especie))
+        pokemon.vida = pokemon.vida - self.ataque
+        print("{} perdeu {} pontos de vida!!!!".format(pokemon, self.ataque))
+
+        if pokemon.vida <=0:
+            print("{} Foi Derrotado !!!".format(pokemon))
+            return True
+        else:
+            return False
 
 
 class PokemonEletrico(Pokemon):
@@ -28,6 +38,7 @@ class PokemonEletrico(Pokemon):
 
     def atacar(self, pokemon):
         print("{} lançou um choque do trovão em {}".format(self, pokemon))
+        return super().atacar(pokemon)
 
 
 class PokemonFogo(Pokemon):
@@ -35,6 +46,7 @@ class PokemonFogo(Pokemon):
 
     def atacar(self, pokemon):
         print("{} lançou uma bola de fogo na cabeca de {}".format(self, pokemon))
+        return super().atacar(pokemon)
 
 
 class PokemonAgua(Pokemon):
@@ -42,11 +54,8 @@ class PokemonAgua(Pokemon):
 
     def atacar(self, pokemon):
         print("{} lançou um Jato d'agua em {}".format(self, pokemon))
+        return super().atacar(pokemon)
+
 
 class Pikachu(PokemonEletrico):
     especie = "Pikachu"
-
-
-
-
-
